@@ -1,0 +1,15 @@
+{
+    "rsc": false,
+    "style": "default",
+    "tailwind": {
+      "config": "tailwind.config.js",
+      "css": "src/index.css",
+      "baseColor": "slate",
+      "cssVariables": false
+    },
+    "aliases": {
+      "components": "@/components",
+      "utils": "@/utils"
+    }
+  }
+  

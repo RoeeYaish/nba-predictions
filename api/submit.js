@@ -3,7 +3,7 @@ export default async function handler(req, res) {
       return res.status(405).send("Method Not Allowed");
     }
   
-    const body = req.body;
+    const body = await req.json(); // 🟢 זה הפתרון
   
     const timestamp = new Date().toLocaleString("en-IL", {
       timeZone: "Asia/Jerusalem",
@@ -15,9 +15,9 @@ export default async function handler(req, res) {
     });
   
     const formatted = body.map((row) => [
-      row.user,     // 🟢 במקום row[0]
-      row.gameId,   // 🟢 במקום row[1]
-      row.pick,     // 🟢 במקום row[2]
+      row.user,
+      row.gameId,
+      row.pick,
       timestamp
     ]);
   

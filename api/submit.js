@@ -3,7 +3,8 @@ export default async function handler(req, res) {
       return res.status(405).send("Method Not Allowed");
     }
   
-    const body = await req.json();
+    // חשוב! ב-Vercel ה-body כבר מפוענח אוטומטית
+    const body = req.body;
   
     const timestamp = new Date().toLocaleString("en-IL", {
       timeZone: "Asia/Jerusalem",
@@ -18,21 +19,27 @@ export default async function handler(req, res) {
       row[0], // user
       row[1], // gameId
       row[2], // pick
-      timestamp,
+      timestamp
     ]);
   
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbzkm85dkp1X4FCboHYczkZ9l3oZkEAw1cZVpLD0fEQWQTVkPxtaKHRno1lfW-XY5e7Z/exec",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formatted)
-      }
-    );
+    try {
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbzkm85dkp1X4FCboHYczkZ9l3oZkEAw1cZVpLD0fEQWQTVkPxtaKHRno1lfW-XY5e7Z/exec",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formatted),
+        }
+      );
   
-    const text = await response.text();
-    return res.status(200).send(text);
+      const text = await response.text();
+      console.log("Response from script:", text);
+      return res.status(200).send(text);
+    } catch (err) {
+      console.error("Error:", err);
+      return res.status(500).send("Server Error: " + err.message);
+    }
   }
   

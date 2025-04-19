@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      "https://script.google.com/macros/s/AKfycbxdr6YeDcs_NogJ_l7Mu09mpl1BildJ4A9Kvjg3WRqQuUVeiC9TuSqmeI9ARidJIxmW/exec"
+      "https://script.google.com/macros/s/AKfycbywGpFGxuL0rR2A64B7Cmo2BbTSNGbNKamkFmPqoVYhAQW7AhCu2-qOwlpTNFwsPgMw/exec"
     )
       .then((res) => res.json())
       .then((data) => setGames(data))

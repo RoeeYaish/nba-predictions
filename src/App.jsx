@@ -18,7 +18,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      "https://script.google.com/macros/s/AKfycbywGpFGxuL0rR2A64B7Cmo2BbTSNGbNKamkFmPqoVYhAQW7AhCu2-qOwlpTNFwsPgMw/exec"
+      "https://script.google.com/macros/s/AKfycbzMBBeRuXUZ87mLCXSea_sAMaG6jaKrDH2YYyvxZqUFlhbY5CUoLOIXmpLH-3yy2im_/exec"
     )
       .then((res) => res.json())
       .then((data) => setGames(data))
@@ -31,11 +31,12 @@ function App() {
   function handleSubmit() {
     if (!userName) return alert("Please select your name")
 
-      const output = games.map((g) => ({
-        user: userName,
-        gameId: g.gameId,
-        pick: predictions[g.gameId] || "",
-      }))
+      const output = games.map((g) => [
+        userName,
+        g.gameId,
+        predictions[g.gameId] || "",
+      ])
+      
       
 
     console.log("Submitting", output)

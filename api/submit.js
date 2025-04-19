@@ -3,7 +3,7 @@ export default async function handler(req, res) {
       return res.status(405).send("Method Not Allowed");
     }
   
-    const body = req.body; // ⛳️ ← זה מה שנכון כאן (ולא await req.json())
+    const body = await req.json();
   
     const timestamp = new Date().toLocaleString("en-IL", {
       timeZone: "Asia/Jerusalem",
@@ -15,14 +15,14 @@ export default async function handler(req, res) {
     });
   
     const formatted = body.map((row) => [
-      row.user,
-      row.gameId,
-      row.pick,
-      timestamp
+      row[0], // user
+      row[1], // gameId
+      row[2], // pick
+      timestamp,
     ]);
   
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbywGpFGxuL0rR2A64B7Cmo2BbTSNGbNKamkFmPqoVYhAQW7AhCu2-qOwlpTNFwsPgMw/exec",
+      "https://script.google.com/macros/s/AKfycbzMBBeRuXUZ87mLCXSea_sAMaG6jaKrDH2YYyvxZqUFlhbY5CUoLOIXmpLH-3yy2im_/exec",
       {
         method: "POST",
         headers: {

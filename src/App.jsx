@@ -31,11 +31,12 @@ function App() {
   function handleSubmit() {
     if (!userName) return alert("Please select your name")
 
-    const output = games.map((g) => [
-      userName,
-      g.gameId,
-      predictions[g.gameId] || "",
-    ])
+      const output = games.map((g) => ({
+        user: userName,
+        gameId: g.gameId,
+        pick: predictions[g.gameId] || "",
+      }))
+      
 
     console.log("Submitting", output)
 

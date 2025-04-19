@@ -35,7 +35,7 @@ function App() {
         userName,
         g.gameId,
         predictions[g.gameId] || "",
-      ])
+      ]);
       
       
 

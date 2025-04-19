@@ -3,7 +3,7 @@ export default async function handler(req, res) {
       return res.status(405).send("Method Not Allowed");
     }
   
-    const body = await req.json(); // 🟢 זה הפתרון
+    const body = req.body; // ⛳️ ← זה מה שנכון כאן (ולא await req.json())
   
     const timestamp = new Date().toLocaleString("en-IL", {
       timeZone: "Asia/Jerusalem",

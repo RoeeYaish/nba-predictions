@@ -14,26 +14,21 @@ export default async function handler(req, res) {
       minute: "2-digit",
     });
   
-    // Debug log to verify structure
-    console.log("Received body:", body);
-  
-    // Ensure body is an array of arrays (not objects)
-    const formatted = body.map((row) => {
-      if (Array.isArray(row)) {
-        return [...row, timestamp];
-      } else {
-        return [row.user, row.gameId, row.pick, timestamp];
-      }
-    });
+    const formatted = body.map((row) => [
+      row.user,     // 🟢 במקום row[0]
+      row.gameId,   // 🟢 במקום row[1]
+      row.pick,     // 🟢 במקום row[2]
+      timestamp
+    ]);
   
     const response = await fetch(
       "https://script.google.com/macros/s/AKfycbywGpFGxuL0rR2A64B7Cmo2BbTSNGbNKamkFmPqoVYhAQW7AhCu2-qOwlpTNFwsPgMw/exec",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(formatted),
+        body: JSON.stringify(formatted)
       }
     );
   

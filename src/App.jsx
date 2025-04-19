@@ -30,15 +30,34 @@ function App() {
 
   function handleSubmit() {
     if (!userName) return alert("Please select your name")
+
     const output = games.map((g) => [
       userName,
       g.gameId,
-      g.home,
-      g.away,
       predictions[g.gameId] || "",
     ])
+
     console.log("Submitting", output)
-    // TO IMPLEMENT: Send output to Google Sheets
+
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxdr6YeDcs_NogJ_l7Mu09mpl1BildJ4A9Kvjg3WRqQuUVeiC9TuSqmeI9ARidJIxmW/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(output),
+      }
+    )
+      .then((res) => res.text())
+      .then((text) => {
+        console.log("Response from script:", text)
+        alert("Predictions submitted successfully!")
+      })
+      .catch((err) => {
+        console.error("Error submitting predictions:", err)
+        alert("Something went wrong.")
+      })
   }
 
   return (
@@ -64,7 +83,10 @@ function App() {
 
       <div className="w-full max-w-3xl grid gap-6">
         {games.map((g) => (
-          <Card key={g.gameId} className="bg-slate-800 border-slate-700 shadow-xl">
+          <Card
+            key={g.gameId}
+            className="bg-slate-800 border-slate-700 shadow-xl"
+          >
             <CardContent className="p-6">
               <h2 className="text-2xl font-bold text-center mb-4">
                 {g.home} <span className="text-yellow-400">vs</span> {g.away}
@@ -72,13 +94,17 @@ function App() {
               <div className="flex justify-center gap-4">
                 <Button
                   onClick={() => handlePrediction(g.gameId, g.home)}
-                  variant={predictions[g.gameId] === g.home ? "default" : "outline"}
+                  variant={
+                    predictions[g.gameId] === g.home ? "default" : "outline"
+                  }
                 >
                   {g.home}
                 </Button>
                 <Button
                   onClick={() => handlePrediction(g.gameId, g.away)}
-                  variant={predictions[g.gameId] === g.away ? "default" : "outline"}
+                  variant={
+                    predictions[g.gameId] === g.away ? "default" : "outline"
+                  }
                 >
                   {g.away}
                 </Button>

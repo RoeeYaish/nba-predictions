@@ -1,17 +1,33 @@
-export default async function handler(req, res) {
-    if (req.method !== "POST") {
-      return res.status(405).send("Method Not Allowed");
-    }
+export async function POST(req) {
+    const body = await req.json();
   
-    const response = await fetch("https://script.google.com/macros/s/AKfycbxdr6YeDcs_NogJ_l7Mu09mpl1BildJ4A9Kvjg3WRqQuUVeiC9TuSqmeI9ARidJIxmW/exec", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(req.body),
+    const timestamp = new Date().toLocaleString("en-IL", {
+      timeZone: "Asia/Jerusalem",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   
-    const text = await response.text();
-    return res.status(200).send(text);
+    const formatted = body.map((row) => [
+      row.user,
+      row.gameId,
+      row.pick,
+      timestamp,
+    ]);
+  
+    const res = await fetch(
+      "https://script.google.com/macros/s/AKfycbzBg4pfDsMtjhQaocAZ9n1UFOhNBqJ4Drz6MU_67F7EOgKRHCla1fzeQCZOcFIsiaE/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formatted),
+      }
+    );
+  
+    return new Response("OK");
   }
   

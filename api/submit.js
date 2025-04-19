@@ -18,11 +18,11 @@ export default async function handler(req, res) {
       row[0], // user
       row[1], // gameId
       row[2], // pick
-      timestamp,
+      timestamp
     ]);
   
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbzMBBeRuXUZ87mLCXSea_sAMaG6jaKrDH2YYyvxZqUFlhbY5CUoLOIXmpLH-3yy2im_/exec",
+      "https://script.google.com/macros/s/AKfycbzkm85dkp1X4FCboHYczkZ9l3oZkEAw1cZVpLD0fEQWQTVkPxtaKHRno1lfW-XY5e7Z/exec",
       {
         method: "POST",
         headers: {
@@ -33,6 +33,6 @@ export default async function handler(req, res) {
     );
   
     const text = await response.text();
-    return res.status(200).send(text);
+    return res.status(200).send("Response from script: " + text);
   }
   

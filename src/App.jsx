@@ -39,16 +39,14 @@ function App() {
 
     console.log("Submitting", output)
 
-    fetch(
-      "https://script.google.com/macros/s/AKfycbxdr6YeDcs_NogJ_l7Mu09mpl1BildJ4A9Kvjg3WRqQuUVeiC9TuSqmeI9ARidJIxmW/exec",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(output),
-      }
-    )
+    fetch("/api/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(output),
+    })
+    
       .then((res) => res.text())
       .then((text) => {
         console.log("Response from script:", text)

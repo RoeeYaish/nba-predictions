@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       row[0], // user
       row[1], // gameId
       row[2], // pick
-      timestamp
+      timestamp,
     ]);
   
     const response = await fetch(
@@ -33,6 +33,6 @@ export default async function handler(req, res) {
     );
   
     const text = await response.text();
-    return res.status(200).send("Response from script: " + text);
+    return res.status(200).send(text);
   }
   

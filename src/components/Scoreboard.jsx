@@ -8,7 +8,8 @@ export default function Scoreboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://script.google.com/macros/s/AKfycbzkm85dkp1X4FCboHYczkZ9l3oZkEAw1cZVpLD0fEQWQTVkPxtaKHRno1lfW-XY5e7Z/exec")
+    fetch("https://script.google.com/macros/s/AKfycbzkm85dkp1X4FCboHYczkZ9l3oZkEAw1cZVpLD0fEQWQTVkPxtaKHRno1lfW-XY5e7Z/exec?action=scores")
+
       .then((res) => res.json())
       .then((data) => {
         const sorted = [...data].sort((a, b) => b.score - a.score);

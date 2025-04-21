@@ -50,7 +50,7 @@ function App() {
       },
       body: JSON.stringify(output),
     })
-      .then((res) => res.text())  // 🛠️ קרא את הטקסט מהתגובה!
+      .then((res) => res.text())  // ✅ פה הקסם
       .then((text) => {
         console.log("Response from script:", text);
         if (text.trim() === "already_submitted") {

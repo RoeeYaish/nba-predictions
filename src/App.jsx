@@ -50,20 +50,17 @@ function App() {
       },
       body: JSON.stringify(output),
     })
-      .then((res) => res.text())  // ✅ פה הקסם
+      .then((res) => res.text())
       .then((text) => {
         console.log("Response from script:", text);
-        if (text.trim() === "already_submitted") {
-          alert("You have already submitted your predictions today. You can only submit once per day.");
-        } else {
-          alert("Predictions submitted successfully!");
-        }
+        alert("Predictions submitted successfully!");
       })
       .catch((err) => {
         console.error("Error submitting predictions:", err);
         alert("Something went wrong.");
       });
   }
+  
   
 
   return (

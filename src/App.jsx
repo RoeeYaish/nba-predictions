@@ -33,16 +33,16 @@ function App() {
   }
 
   function handleSubmit() {
-    if (!userName) return alert("Please select your name")
-
+    if (!userName) return alert("Please select your name");
+  
     const output = games.map((g) => [
       userName,
       g.gameId,
       predictions[g.gameId] || "",
-    ])
-
-    console.log("Submitting", output)
-
+    ]);
+  
+    console.log("Submitting", output);
+  
     fetch("/api/submit", {
       method: "POST",
       headers: {
@@ -50,20 +50,21 @@ function App() {
       },
       body: JSON.stringify(output),
     })
-    .then((text) => {
-      console.log("Response from script:", text)
-      if (text === "already_submitted") {
-        alert("You have already submitted your predictions today. You can only submit once per day.");
-      } else {
-        alert("Predictions submitted successfully!")
-      }
-    })
-    
-      .catch((err) => {
-        console.error("Error submitting predictions:", err)
-        alert("Something went wrong.")
+      .then((res) => res.text())  // ✅ החלק שהיה חסר
+      .then((text) => {
+        console.log("Response from script:", text);
+        if (text.trim() === "already_submitted") {
+          alert("You have already submitted your predictions today. You can only submit once per day.");
+        } else {
+          alert("Predictions submitted successfully!");
+        }
       })
+      .catch((err) => {
+        console.error("Error submitting predictions:", err);
+        alert("Something went wrong.");
+      });
   }
+  
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 text-white p-6 flex flex-col items-center">

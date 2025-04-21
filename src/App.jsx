@@ -93,14 +93,20 @@ function App() {
               className="bg-slate-800/90 border-slate-700 shadow-2xl backdrop-blur-sm"
             >
               <CardContent className="p-6">
-                <h2 className="text-3xl font-bold text-center mb-6">
-                  <img src={g.homeImg} width="100" height="100" className="mx-auto my-4" />
-                  {g.home} 
-                  <span className="text-yellow-400"> vs </span>
-                  {g.away} 
-                  <img src={g.awayImg} width="100" height="100" className="mx-auto my-4" />
-                </h2>
-                <div className="flex justify-center gap-6">
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
+                  <div className="flex flex-col items-center">
+                    <img src={g.homeImg} width="80" height="80" className="mb-2" />
+                    <span className="text-lg font-bold text-center">{g.home}</span>
+                  </div>
+                  <span className="text-yellow-400 text-xl sm:text-3xl font-bold">vs</span>
+                  <div className="flex flex-col items-center">
+                    <img src={g.awayImg} width="80" height="80" className="mb-2" />
+                    <span className="text-lg font-bold text-center">{g.away}</span>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-4">
+
                   <Button
                     onClick={() => handlePrediction(g.gameId, g.home)}
                     className={`text-lg px-6 py-3 rounded-xl font-semibold ${predictions[g.gameId] === g.home

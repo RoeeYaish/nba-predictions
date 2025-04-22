@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import Scoreboard from "@/components/Scoreboard"
+import DailyPredictions from "@/components/DailyPredictions"
 import {
   Select,
   SelectTrigger,
@@ -141,8 +142,9 @@ function App() {
             Submit Predictions
           </Button>
         </div>
-        {/* ✅ הוספת טבלת הניקוד */}
+        {/* ✅ הוספת טבלת הניקוד וטבלת התחזיות */}
         <Scoreboard />
+        <DailyPredictions />
       </div>
     </main>
   )

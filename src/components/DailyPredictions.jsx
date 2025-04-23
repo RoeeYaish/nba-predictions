@@ -11,16 +11,16 @@ export default function DailyPredictions() {
       fetch("/api/dailyPredictions")
         .then((res) => res.json())
         .then((data) => setPredictions(data))
-        .catch((err) => console.error("Failed to fetch predictions", err))
+        .catch((err) => console.error("❌ Failed to fetch predictions", err))
     }
 
     fetchPredictions()
     const interval = setInterval(fetchPredictions, 30000)
 
-    fetch("https://script.google.com/macros/s/AKfycbzkm85dkp1X4FCboHYczkZ9l3oZkEAw1cZVpLD0fEQWQTVkPxtaKHRno1lfW-XY5e7Z/exec")
+    fetch("/api/submit") // לא ישירות ל־Google Script
       .then((res) => res.json())
       .then((data) => setGames(data))
-      .catch((err) => console.error("Failed to fetch games", err))
+      .catch((err) => console.error("❌ Failed to fetch games", err))
 
     return () => clearInterval(interval)
   }, [])

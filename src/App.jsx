@@ -35,15 +35,15 @@ function App() {
 
   function handleSubmit() {
     if (!userName) return alert("Please select your name");
-  
+
     const output = games.map((g) => [
       userName,
       g.gameId,
       predictions[g.gameId] || "",
     ]);
-  
+
     console.log("Submitting", output);
-  
+
     fetch("/api/submit", {
       method: "POST",
       headers: {
@@ -61,8 +61,8 @@ function App() {
         alert("Something went wrong.");
       });
   }
-  
-  
+
+
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 text-white p-6 flex flex-col items-center">
@@ -96,6 +96,12 @@ function App() {
               className="bg-slate-800/90 border-slate-700 shadow-2xl backdrop-blur-sm"
             >
               <CardContent className="p-6">
+                {g.gameTimeIL && (
+                  <p className="text-center text-slate-300 text-sm mb-2">
+                    🕒 Game Time <span className="font-semibold text-white">{g.gameTimeIL}</span> (IL)
+                  </p>
+                )}
+
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6">
                   <div className="flex flex-col items-center">
                     <img src={g.homeImg} width="80" height="80" className="mb-2" />
